@@ -335,7 +335,7 @@ Instead of manually listening to an entire recording, users can process the conv
 * Sarvam API usage requires an API key.
 * Internet connectivity is required for cloud-based services.
 * YouTube extraction behavior can change as YouTube updates its platform.
-* FFmpeg must be installed separately.
+* FFmpeg and a supported JavaScript runtime (such as Deno or Node.js) must be installed for YouTube audio extraction. The `yt-dlp[default]` dependency installs yt-dlp's matching YouTube challenge scripts.
 
 ---
 
