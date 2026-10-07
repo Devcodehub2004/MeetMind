@@ -21,8 +21,11 @@ def download_youtube_audio(url :str) ->str:
         "quiet": True,
         "noplaylist": True,
     }
+    deno_path = shutil.which("deno")
     node_path = shutil.which("node")
-    if node_path:
+    if deno_path:
+        ydl_opts["js_runtimes"] = {"deno": {"path": deno_path}}
+    elif node_path:
         ydl_opts["js_runtimes"] = {"node": {"path": node_path}}
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
