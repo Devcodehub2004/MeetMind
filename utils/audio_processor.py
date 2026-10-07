@@ -20,6 +20,7 @@ def download_youtube_audio(url :str) ->str:
         ],
         "quiet": True,
         "noplaylist": True,
+        "force_ipv4": True,
     }
     deno_path = shutil.which("deno")
     node_path = shutil.which("node")
