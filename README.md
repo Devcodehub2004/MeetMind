@@ -2,11 +2,42 @@
 
 > **AI-powered meeting & video assistant that turns conversations into useful knowledge.**
 
-MeetMind is an AI-powered application designed to process meeting recordings and online videos, convert speech into text, translate Hinglish conversations into English, and generate useful summaries from the resulting transcript.
+MeetMind is a prototype AI application designed to process meeting recordings and online videos, convert speech into text, translate Hinglish conversations into English, and generate useful summaries from the resulting transcript.
 
 It combines **local AI speech recognition**, **Sarvam AI**, **LangChain**, **Mistral**, and **RAG-based document retrieval** into a single Streamlit application.
 
 ---
+
+## For AI/ML hiring teams
+
+**Problem:** Meeting audio and videos are hard to search or summarize manually.
+
+**Pipeline:** Audio/video ingestion → audio chunking → speech recognition (local Whisper or supported API path) → transcript → LLM summarization and embedding-based retrieval → Streamlit results.
+
+**What this project demonstrates:** Python-based AI application integration, external speech/LLM APIs, text chunking, vector search using ChromaDB, and a user-facing workflow.
+
+**Current evidence and limitations:** The repository contains application code and setup instructions, but **no verified hosted demo or screenshot** is provided here. Transcription speed depends on hardware and external services, and YouTube extraction may fail as third-party sites change. This is a portfolio prototype, not a guaranteed production deployment.
+
+**Architecture at a glance**
+
+```mermaid
+flowchart LR
+    A[Audio or video] --> B[Extraction and chunking]
+    B --> C[Whisper or transcription API]
+    C --> D[Transcript]
+    D --> E[LLM summary]
+    D --> F[Embeddings and ChromaDB]
+    F --> G[Retrieval context]
+    E --> H[Streamlit results]
+    G --> H
+```
+
+[Features](#-features) · [Installation](#️-installation) · [Limitations](#-current-limitations)
+
+---
+
+
+**Demo walkthrough:** [60-second demo script and screenshot checklist](docs/DEMO_GUIDE.md). No public demo video or app screenshots are claimed until actual captures are added.
 
 ## ✨ Features
 
@@ -123,7 +154,7 @@ It combines **local AI speech recognition**, **Sarvam AI**, **LangChain**, **Mis
 | **OpenAI Whisper**        | Local speech recognition              |
 | **Sarvam AI**             | Hinglish speech-to-text & translation |
 | **LangChain**             | LLM orchestration                     |
-| **Mistral AI**            | AI summarization                      |
+| **NVIDIA NIM**            | AI summarization                      |
 | **ChromaDB**              | Vector database                       |
 | **Sentence Transformers** | Text embeddings                       |
 | **Hugging Face**          | Embedding/model ecosystem             |
@@ -139,13 +170,15 @@ MeetMind/
 │
 ├── app.py
 │
-├── transcriber.py
-├── summarizer.py
-│
-├── downloader.py
-├── rag.py
-│
-├── downloads/
+├── main.py
+├── core/
+│   ├── transcriber.py
+│   ├── summarize.py
+│   ├── RAG.py
+│   └── vector_store.py
+├── utils/
+│   └── audio_processor.py
+├── downloades/  # local runtime output, not committed
 │
 ├── .env
 ├── requirements.txt
@@ -162,7 +195,7 @@ MeetMind/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/MeetMind.git
+git clone https://github.com/Devcodehub2004/MeetMind.git
 cd MeetMind
 ```
 
@@ -204,7 +237,7 @@ If the command is not recognized, install FFmpeg and add it to your system `PATH
 
 ## 🔐 Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root. The current summarization, extraction and RAG modules use NVIDIA's OpenAI-compatible endpoint; `NVIDIA_API_KEY` is required for those paths:
 
 ```env
 SARVAM_API_KEY=your_sarvam_api_key
@@ -213,20 +246,22 @@ SARVAM_STT_MODEL=saaras:v2.5
 
 WHISPER_MODEL=small
 
-MISTRAL_API_KEY=your_mistral_api_key
+NVIDIA_API_KEY=your_nvidia_api_key
 ```
 
 ### ⚠️ Important
 
 Never commit your `.env` file or API keys to GitHub.
 
-Add this to `.gitignore`:
+The repository's `.gitignore` already ignores `.env` and `.venv/`. Consider also ignoring the locally generated `vector_db/` and `downloades/` directories before recording real meeting data. Example:
 
 ```gitignore
 .env
 .venv/
 __pycache__/
 downloads/
+downloades/
+vector_db/
 *.pyc
 ```
 
@@ -341,14 +376,11 @@ Instead of manually listening to an entire recording, users can process the conv
 
 ## 🔮 Future Improvements
 
-Potential improvements include:
+Potential improvements include (some are already prototyped in the current Streamlit app):
 
 * 👥 Automatic speaker identification
 * 📝 Meeting minutes generation
-* ✅ Automatic action-item extraction
-* 📌 Key decision detection
 * 🗓️ Meeting agenda generation
-* 💬 Interactive transcript chat
 * 🔍 Improved semantic search
 * 🎯 Topic and keyword extraction
 * 📊 Meeting analytics
@@ -360,17 +392,7 @@ Potential improvements include:
 
 ## 📸 Demo
 
-Add screenshots or a GIF of the application here:
-
-```text
-Coming soon...
-```
-
-Example:
-
-```markdown
-![MeetMind Demo](assets/demo.gif)
-```
+Screenshots and a public hosted demo are **not yet provided** in this repository. To demonstrate the project in an interview, run the app locally and show an example you have permission to process: input, transcription, summary, and retrieval/question-answering. Avoid including private meeting recordings in screenshots.
 
 ---
 
@@ -426,9 +448,4 @@ If you find this project useful, consider giving the repository a ⭐ on GitHub.
 
 ## 📄 License
 
-This project is available under the **MIT License**.
-
-See `LICENSE` for more information.
-
-```
-```
+No top-level `LICENSE` file was present in the repository at the time of this documentation review. Check licensing before reusing or distributing the project.
