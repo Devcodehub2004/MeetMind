@@ -4,7 +4,7 @@
 
 MeetMind is a prototype AI application designed to process meeting recordings and online videos, convert speech into text, translate Hinglish conversations into English, and generate useful summaries from the resulting transcript.
 
-It combines **local AI speech recognition**, **Sarvam AI**, **LangChain**, **Mistral**, and **RAG-based document retrieval** into a single Streamlit application.
+It combines **local AI speech recognition**, **Sarvam AI**, **LangChain**, **NVIDIA NIM**, and **RAG-based document retrieval** into a single Streamlit application.
 
 ---
 
@@ -63,7 +63,7 @@ flowchart LR
 
 * 🤖 **AI Summarization**
 
-  * Uses LangChain and Mistral to transform transcripts into concise summaries.
+  * Uses LangChain with the NVIDIA-hosted model endpoint to generate transcript summaries.
   * Helps extract the important information from long conversations.
 
 * 🔎 **RAG Pipeline**
@@ -124,7 +124,7 @@ flowchart LR
                                ▼
                     ┌─────────────────────┐
                     │      LangChain      │
-                    │     + Mistral LLM   │
+                    │    + NVIDIA NIM LLM │
                     └──────────┬──────────┘
                                │
                                ▼
