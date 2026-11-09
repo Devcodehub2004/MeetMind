@@ -8,6 +8,34 @@ It combines **local AI speech recognition**, **Sarvam AI**, **LangChain**, **Mis
 
 ---
 
+## For AI/ML hiring teams
+
+**Problem:** Meeting audio and videos are hard to search or summarize manually.
+
+**Pipeline:** Audio/video ingestion → audio chunking → speech recognition (local Whisper or supported API path) → transcript → LLM summarization and embedding-based retrieval → Streamlit results.
+
+**What this project demonstrates:** Python-based AI application integration, external speech/LLM APIs, text chunking, vector search using ChromaDB, and a user-facing workflow.
+
+**Current evidence and limitations:** The repository contains application code and setup instructions, but **no verified hosted demo or screenshot** is provided here. Transcription speed depends on hardware and external services, and YouTube extraction may fail as third-party sites change. This is a portfolio prototype, not a guaranteed production deployment.
+
+**Architecture at a glance**
+
+```mermaid
+flowchart LR
+    A[Audio or video] --> B[Extraction and chunking]
+    B --> C[Whisper or transcription API]
+    C --> D[Transcript]
+    D --> E[LLM summary]
+    D --> F[Embeddings and ChromaDB]
+    F --> G[Retrieval context]
+    E --> H[Streamlit results]
+    G --> H
+```
+
+[Features](#-features) · [Installation](#️-installation) · [Limitations](#-current-limitations)
+
+---
+
 ## ✨ Features
 
 * 🎥 **YouTube Video Processing**
@@ -162,7 +190,7 @@ MeetMind/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/MeetMind.git
+git clone https://github.com/Devcodehub2004/MeetMind.git
 cd MeetMind
 ```
 
@@ -360,17 +388,7 @@ Potential improvements include:
 
 ## 📸 Demo
 
-Add screenshots or a GIF of the application here:
-
-```text
-Coming soon...
-```
-
-Example:
-
-```markdown
-![MeetMind Demo](assets/demo.gif)
-```
+Screenshots and a public hosted demo are **not yet provided** in this repository. To demonstrate the project in an interview, run the app locally and show an example you have permission to process: input, transcription, summary, and retrieval/question-answering. Avoid including private meeting recordings in screenshots.
 
 ---
 
@@ -430,5 +448,3 @@ This project is available under the **MIT License**.
 
 See `LICENSE` for more information.
 
-```
-```
