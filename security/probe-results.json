@@ -1,0 +1,36 @@
+{
+  "scope": "local synthetic probes; no Strix scan, AI calls, or production data",
+  "results": [
+    {
+      "probe": "server_file_path_accepted",
+      "status": "reproduced",
+      "detail": "The same process_input called by the URL widget read and converted a synthetic server file outside the upload flow. Arbitrary text-file disclosure was not tested or established."
+    },
+    {
+      "probe": "server_side_loopback_request",
+      "status": "reproduced",
+      "detail": {
+        "loopback_requests": 1,
+        "detail": "The URL path caused real server-side HTTP requests to a loopback service. No external or metadata service was contacted."
+      }
+    },
+    {
+      "probe": "upload_filename_collision",
+      "status": "reproduced",
+      "detail": "Two synthetic uploads with the same extension in the same second used the same filename; Bob's bytes overwrote Alice's bytes."
+    },
+    {
+      "probe": "shared_vector_collection_replaced",
+      "status": "reproduced",
+      "detail": {
+        "detail": "Building Bob's store deleted Alice's stored meeting in the shared namespace.",
+        "old_handle": "old handle failed with NotFoundError"
+      }
+    },
+    {
+      "probe": "untrusted_context_in_system_role",
+      "status": "reproduced",
+      "detail": "An untrusted transcript instruction reached the system-role message unchanged. This proves the prompt boundary weakness, not a successful jailbreak of the production model."
+    }
+  ]
+}
